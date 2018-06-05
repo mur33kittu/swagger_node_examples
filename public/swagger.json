@@ -1,0 +1,182 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "1.0"
+  },
+  "produces": ["application/json"],
+  "host": "localhost:3000",
+  "basePath": "/",
+  "paths": {
+    "/api/books": {
+      "get": {
+        "x-swagger-router-controller": "books",
+        "operationId": "getAllBooks",
+        "tags": ["/books"],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "/books"
+        ],
+        "summary": "Add a new Book to the mongodb",
+        "description": "",
+        "operationId": "createBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "Book object that needs to be added to mongodb",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Book"
+          }
+        }],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "/books"
+        ],
+        "summary": "Update an existing Book",
+        "description": "",
+        "operationId": "updateBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name" : "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Book"
+          }
+        }],
+        "responses": {
+          "400": {
+            "description": "Invalid Book supplied"
+          },
+          "404": {
+            "description": "Book not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "/books"
+        ],
+        "summary": "Delete an existing Book",
+        "description": "",
+        "operationId": "deleteBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name" : "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Book"
+          }
+        }],
+        "responses": {
+          "400": {
+            "description": "Invalid Book supplied"
+          },
+          "404": {
+            "description": "Book not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/api/books/{title}": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Find book by Title",
+        "description": "Returns a single Book",
+        "operationId": "getByBookTitle",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [{
+          "name": "title",
+          "in": "path",
+          "description": "Title of Book to return",
+          "required": true,
+          "type": "string",
+          "format": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Invalid Title supplied"
+          },
+          "404": {
+            "description": "Book not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "string"
+        },
+        "title": {
+          "type": "string",
+          "format": "string"
+        },
+        "author": {
+          "type": "string",
+          "format": "string"
+        },
+        "category": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    }
+  }
+}
